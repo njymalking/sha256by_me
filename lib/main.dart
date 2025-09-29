@@ -34,3 +34,13 @@ class _HomePageState extends State<HomePage> {
   String _sha256 = '';
   String? _pickedFileName;
   List<int>? _pickedFileBytes;
+  
+void _computeFromText() {
+    final bytes = utf8.encode(_inputText);
+    final digest = sha256.convert(bytes);
+    setState(() {
+      _sha256 = digest.toString();
+      _pickedFileName = null;
+      _pickedFileBytes = null;
+    });
+  }
