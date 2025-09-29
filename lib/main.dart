@@ -65,3 +65,13 @@ void _computeFromText() {
     Future<void> _createPdfReport() async {
     final pdf = pw.Document();
     final now = DateTime.now();
+    pdf.addPage(
+      pw.Page(
+        build: (context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text('SHA256 Report', style: const pw.TextStyle(fontSize: 24)),
+              pw.SizedBox(height: 12),
+              pw.Text('Generated: ${now.toIso8601String()}'),
+              pw.SizedBox(height: 8),
