@@ -61,3 +61,7 @@ void _computeFromText() {
       }
     }
   }
+
+    Future<void> _createPdfReport() async {
+    final pdf = pw.Document();
+    final now = DateTime.now();
