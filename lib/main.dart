@@ -75,3 +75,20 @@ void _computeFromText() {
               pw.SizedBox(height: 12),
               pw.Text('Generated: ${now.toIso8601String()}'),
               pw.SizedBox(height: 8),
+               pw.Text(
+                  'Input type: ${_pickedFileName != null ? 'File' : 'Text'}'),
+              pw.SizedBox(height: 8),
+              if (_pickedFileName != null)
+                pw.Text('File name: $_pickedFileName'),
+              if (_inputText.isNotEmpty)
+                pw.Text(
+                    'Text (first 200 chars): ${_inputText.length > 200 ? "${_inputText.substring(0, 200)}..." : _inputText}'),
+              pw.SizedBox(height: 12),
+              pw.Text('SHA256:',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+              pw.Text(_sha256),
+            ],
+          );
+        },
+      ),
+    );
