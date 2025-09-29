@@ -6,3 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:path_provider/path_provider.dart';
+
+void main() {
+  runApp(const MyApp());
+}
