@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   String _sha256 = '';
   String? _pickedFileName;
   List<int>? _pickedFileBytes;
-  
+
 void _computeFromText() {
     final bytes = utf8.encode(_inputText);
     final digest = sha256.convert(bytes);
@@ -44,3 +44,9 @@ void _computeFromText() {
       _pickedFileBytes = null;
     });
   }
+
+   Future<void> _pickFile() async {
+    final result = await FilePicker.platform.pickFiles(withData: true);
+    if (result != null && result.files.isNotEmpty) {
+      final file = result.files.first;
+      final bytes = file.bytes;
