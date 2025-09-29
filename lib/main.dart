@@ -50,3 +50,14 @@ void _computeFromText() {
     if (result != null && result.files.isNotEmpty) {
       final file = result.files.first;
       final bytes = file.bytes;
+       if (bytes != null) {
+        final digest = sha256.convert(bytes);
+        setState(() {
+          _sha256 = digest.toString();
+          _pickedFileName = file.name;
+          _pickedFileBytes = bytes;
+          _inputText = '';
+        });
+      }
+    }
+  }
