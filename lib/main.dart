@@ -102,4 +102,11 @@ class _HomePageState extends State<HomePage> {
     await Printing.sharePdf(
         bytes: await pdf.save(), filename: file.path.split('/').last);
   }
+
+   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('SHA256 + PDF Report'),
+      ),
 }
