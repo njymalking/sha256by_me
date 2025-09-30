@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
         bytes: await pdf.save(), filename: file.path.split('/').last);
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -119,7 +119,8 @@ class _HomePageState extends State<HomePage> {
               minLines: 1,
               maxLines: 4,
               onChanged: (v) => _inputText = v,
-            ),const SizedBox(height: 8),
+            ),
+            const SizedBox(height: 8),
             Row(
               children: [
                 ElevatedButton(
@@ -131,4 +132,22 @@ class _HomePageState extends State<HomePage> {
                   onPressed: _pickFile,
                   child: const Text('Pick File & Compute'),
                 ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: _sha256.isEmpty ? null : _createPdfReport,
+                  child: const Text('Create PDF Report'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            if (_pickedFileName != null) Text('Picked file: $_pickedFileName'),
+            if (_sha256.isNotEmpty) SelectableText('SHA256: $_sha256'),
+            const SizedBox(height: 8),
+            const Text(
+                'Notes: Use file picker to select large files; PDF will be shared via native share dialog.'),
+          ],
+        ),
+      ),
+    );
+  }
 }
