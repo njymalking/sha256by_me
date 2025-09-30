@@ -109,4 +109,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('SHA256 + PDF Report'),
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              decoration:
+                  const InputDecoration(labelText: 'Enter text to hash'),
+              minLines: 1,
+              maxLines: 4,
+              onChanged: (v) => _inputText = v,
+            ),
 }
