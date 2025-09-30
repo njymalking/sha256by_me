@@ -103,48 +103,100 @@ class _HomePageState extends State<HomePage> {
         bytes: await pdf.save(), filename: file.path.split('/').last);
   }
 
+  void _shareResult() {
+    Share.share("SHA256:\n$_sha256");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('SHA256 + PDF Report'),
-      ),
+      appBar: AppBar(title: const Text("SHA256 Hasher")),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             TextField(
-              decoration:
-                  const InputDecoration(labelText: 'Enter text to hash'),
-              minLines: 1,
-              maxLines: 4,
-              onChanged: (v) => _inputText = v,
+              controller: _controller,
+              decoration: const InputDecoration(
+                labelText: "أدخل النص هنا",
+                border: OutlineInputBorder(),
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
+                ElevatedButton.icon(
                   onPressed: _computeFromText,
-                  child: const Text('Compute SHA256 (text)'),
+                  icon: const Icon(Icons.text_fields),
+                  label: const Text("Compute Text"),
                 ),
-                const SizedBox(width: 8),
-                ElevatedButton(
+                ElevatedButton.icon(
                   onPressed: _pickFile,
-                  child: const Text('Pick File & Compute'),
-                ),
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: _sha256.isEmpty ? null : _createPdfReport,
-                  child: const Text('Create PDF Report'),
+                  icon: const Icon(Icons.upload_file),
+                  label: const Text("Pick File"),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            if (_pickedFileName != null) Text('Picked file: $_pickedFileName'),
-            if (_sha256.isNotEmpty) SelectableText('SHA256: $_sha256'),
-            const SizedBox(height: 8),
-            const Text(
-                'Notes: Use file picker to select large files; PDF will be shared via native share dialog.'),
+            if (_sha256.isNotEmpty)
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeInOut,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 6,
+                      offset: const Offset(2, 2),
+                    )
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(" تم الحساب من: $_inputType",
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    if (_fileName != null) Text(" الملف: $_fileName"),
+                    const SizedBox(height: 8),
+                    const Text(" SHA256:"),
+                    SelectableText(
+                      _sha256,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.copy, color: Colors.blue),
+                          onPressed: _copyToClipboard,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.share, color: Colors.green),
+                          onPressed: _shareResult,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            const Spacer(),
+            ElevatedButton.icon(
+              onPressed: _sha256.isEmpty ? null : _createPdfReport,
+              icon: const Icon(Icons.picture_as_pdf),
+              label: const Text("Create PDF Report"),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+              ),
+            ),
           ],
         ),
       ),
