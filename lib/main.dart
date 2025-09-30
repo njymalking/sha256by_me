@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   String? _pickedFileName;
   List<int>? _pickedFileBytes;
 
-void _computeFromText() {
+  void _computeFromText() {
     final bytes = utf8.encode(_inputText);
     final digest = sha256.convert(bytes);
     setState(() {
@@ -45,12 +45,12 @@ void _computeFromText() {
     });
   }
 
-   Future<void> _pickFile() async {
+  Future<void> _pickFile() async {
     final result = await FilePicker.platform.pickFiles(withData: true);
     if (result != null && result.files.isNotEmpty) {
       final file = result.files.first;
       final bytes = file.bytes;
-       if (bytes != null) {
+      if (bytes != null) {
         final digest = sha256.convert(bytes);
         setState(() {
           _sha256 = digest.toString();
@@ -62,7 +62,7 @@ void _computeFromText() {
     }
   }
 
-    Future<void> _createPdfReport() async {
+  Future<void> _createPdfReport() async {
     final pdf = pw.Document();
     final now = DateTime.now();
     pdf.addPage(
@@ -75,7 +75,7 @@ void _computeFromText() {
               pw.SizedBox(height: 12),
               pw.Text('Generated: ${now.toIso8601String()}'),
               pw.SizedBox(height: 8),
-               pw.Text(
+              pw.Text(
                   'Input type: ${_pickedFileName != null ? 'File' : 'Text'}'),
               pw.SizedBox(height: 8),
               if (_pickedFileName != null)
@@ -92,3 +92,5 @@ void _computeFromText() {
         },
       ),
     );
+  }
+}
