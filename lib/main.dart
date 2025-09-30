@@ -98,5 +98,8 @@ class _HomePageState extends State<HomePage> {
     final file =
         File('${output.path}/sha256_report_${now.millisecondsSinceEpoch}.pdf');
     await file.writeAsBytes(await pdf.save());
+
+    await Printing.sharePdf(
+        bytes: await pdf.save(), filename: file.path.split('/').last);
   }
 }
