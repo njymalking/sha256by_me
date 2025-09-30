@@ -1,0 +1,23 @@
+name: flutter_sha256_pdf_report
+description: A simple Flutter app to compute SHA256 of text or a file and create a PDF report.
+publish_to: "none"
+version: 0.0.1
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  crypto: ^3.0.2
+  file_picker: ^5.2.2
+  pdf: ^3.10.1
+  printing: ^5.10.0
+  path_provider: ^2.0.11
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
