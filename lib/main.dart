@@ -119,5 +119,16 @@ class _HomePageState extends State<HomePage> {
               minLines: 1,
               maxLines: 4,
               onChanged: (v) => _inputText = v,
-            ),
+            ),const SizedBox(height: 8),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: _computeFromText,
+                  child: const Text('Compute SHA256 (text)'),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: _pickFile,
+                  child: const Text('Pick File & Compute'),
+                ),
 }
