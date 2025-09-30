@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 void main() {
   runApp(const MyApp());
@@ -92,5 +93,10 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+
+    final output = await getTemporaryDirectory();
+    final file =
+        File('${output.path}/sha256_report_${now.millisecondsSinceEpoch}.pdf');
+    await file.writeAsBytes(await pdf.save());
   }
 }
